@@ -14,6 +14,7 @@
 #include <common.h>
 #include <elf.h>
 #include <system-constants.h>
+#include <asm/csr.h>
 #include <asm/encoding.h>
 #include <generated/asm-offsets.h>
 
@@ -63,7 +64,7 @@ _start:
 	csrr	a0, CSR_MHARTID
 #endif
 	li t0, 0x70013
-	csrs	mcor,t0
+	csrs	CSR_MCOR, t0
 	/*
 	 * Save hart id and dtb pointer. The thread pointer register is not
 	 * modified by C code. It is used by secondary_hart_loop.
