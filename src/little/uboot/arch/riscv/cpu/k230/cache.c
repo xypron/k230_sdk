@@ -26,6 +26,7 @@
 #include <cpu_func.h>
 #include <dm.h>
 #include <asm/cache.h>
+#include <asm/csr.h>
 #include <dm/uclass-internal.h>
 #include <cache.h>
 #include <asm/csr.h>
@@ -91,15 +92,12 @@
 
 __ALWAYS_STATIC_INLINE uint64_t __get_MHCR(void)
 {
-    uint64_t result;
-
-    __ASM volatile("csrr %0, mhcr" : "=r"(result));
-    return (result);
+    return csr_read(CSR_MHCR);
 }
 
 __ALWAYS_STATIC_INLINE void __set_MHCR(uint64_t mhcr)
 {
-    __ASM volatile("csrw mhcr, %0" : : "r"(mhcr));
+    csr_write(CSR_MHCR, mhcr);
 }
 /**
   \brief   Instruction Synchronization Barrier
